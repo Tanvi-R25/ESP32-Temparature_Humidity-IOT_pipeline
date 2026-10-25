@@ -1,0 +1,222 @@
+[
+    {
+        "id": "cb7e18b37510e944",
+        "type": "tab",
+        "label": "DHT22 monitor",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dht_in",
+        "type": "mqtt in",
+        "z": "cb7e18b37510e944",
+        "name": "DHT22 Sensor",
+        "topic": "esp32/dht",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "a6e667a5667c9a0b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 300,
+        "y": 340,
+        "wires": [
+            [
+                "temp_change",
+                "hum_change",
+                "dht_debug",
+                "059544d4cf61f435"
+            ]
+        ]
+    },
+    {
+        "id": "dht_debug",
+        "type": "debug",
+        "z": "cb7e18b37510e944",
+        "name": "Raw DHT Data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "temp_change",
+        "type": "change",
+        "z": "cb7e18b37510e944",
+        "name": "Extract Temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 340,
+        "wires": [
+            [
+                "temp_debug"
+            ]
+        ]
+    },
+    {
+        "id": "hum_change",
+        "type": "change",
+        "z": "cb7e18b37510e944",
+        "name": "Extract Hum",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.humidity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [
+                "hum_debug"
+            ]
+        ]
+    },
+    {
+        "id": "temp_debug",
+        "type": "debug",
+        "z": "cb7e18b37510e944",
+        "name": "Temperature (°C)",
+        "active": true,
+        "tosidebar": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 750,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "hum_debug",
+        "type": "debug",
+        "z": "cb7e18b37510e944",
+        "name": "Humidity (%)",
+        "active": true,
+        "tosidebar": true,
+        "complete": "payload",
+        "x": 740,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "059544d4cf61f435",
+        "type": "function",
+        "z": "cb7e18b37510e944",
+        "name": "Format for Influx",
+        "func": "var data = typeof msg.payload === \"string\" ? JSON.parse(msg.payload) : msg.payload;\n\nmsg.measurement = \"dht22_environment\";\nmsg.payload = {\n    temperature: Number(data.temperature),\n    humidity: Number(data.humidity)\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 500,
+        "wires": [
+            [
+                "88700853aa881c92"
+            ]
+        ]
+    },
+    {
+        "id": "88700853aa881c92",
+        "type": "influxdb out",
+        "z": "cb7e18b37510e944",
+        "influxdb": "ddcc6f793103c3e6",
+        "name": "",
+        "measurement": "dht22_environment",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "iot_home",
+        "bucket": "dht22_telemetry",
+        "x": 840,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a6e667a5667c9a0b",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": " 172.17.6.96",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ddcc6f793103c3e6",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://localhost:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "4fb6a10b5dfe4689",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0"
+        }
+    }
+]
