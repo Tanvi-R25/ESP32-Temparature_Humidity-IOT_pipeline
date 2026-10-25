@@ -75,7 +75,7 @@ A local, high-reliability multi-tier monitoring pipeline for the ESP32 and DHT22
 ![nodered](Docs/nodered.png)
 
 ### Google Home monitoring
-![<img src="Docs/Google%20Home.jpeg" height="400" alt="Google Home Integration">](Docs/Google%20Home.jpeg)
+<img src="Docs/Google%20Home.jpeg" width="240" alt="Google Home Integration">
 
 ### Influx DB
 ![Time series](Docs/influxDB.jpeg)
