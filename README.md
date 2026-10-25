@@ -3,6 +3,10 @@
 A local, high-reliability multi-tier monitoring pipeline for the ESP32 and DHT22 sensor with cloud smart-home integration and UI dashboards.
 (The system leverages dual-core FreeRTOS execution to decouple cloud smart-home synchronization from local high-frequency MQTT data publishing, ensuring zero telemetry dropouts during network latency spikes.)
 
+## Circuit connection
+
+![circuit](Docs/Circuit.jpeg)
+
 
 ## Flow chart
                   +-------------------+
@@ -69,6 +73,9 @@ A local, high-reliability multi-tier monitoring pipeline for the ESP32 and DHT22
 
 ### Node Red
 ![nodered](Docs/nodered.png)
+
+### Google Home monitoring
+![Live temparature](Docs/Google%20Home.jpeg)
 
 ### Influx DB
 ![Time series](Docs/influxDB.jpeg)
