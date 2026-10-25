@@ -65,13 +65,13 @@ A local, high-reliability multi-tier monitoring pipeline for the ESP32 and DHT22
 ## RESULTS
 
 ### Serial Monitor result
-![Serial monitor](docs/serial%20monitor.png)
+![Serial monitor](Docs/serial%20monitor.png)
 
 ### Node Red
-![nodered](docs/nodered.png)
+![nodered](Docs/nodered.png)
 
 ### Influx DB
-![Time series](docs/influxDB.jpeg)
+![Time series](Docs/influxDB.jpeg)
 
-### Graphana
-![Real-time line chart and Gauges](docs/graphana.png)
+### Grafana
+![Real-time line chart and Gauges](Docs/graphana.png)
